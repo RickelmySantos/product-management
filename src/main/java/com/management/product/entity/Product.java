@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 import java.util.Objects;
 @Entity
-@Table(name = "Product")
+@Table(name = "Products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +19,23 @@ public class Product {
     private String size;
     @Column(nullable = false, length = 30)
     private String color;
+    @Column(nullable = false, length = 255)
+    private Double price;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    public Product(){
-
+    public Product() {
     }
 
-    public Product(Long id, String brand, String model, String size, String color) {
+    public Product(Long id, String brand, String model, String size, String color, Double price, Category category) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.size = size;
         this.color = color;
+        this.price = price;
+        this.category = category;
     }
 
     public Product(ProductDTO productDTO) {
@@ -38,6 +44,7 @@ public class Product {
         this.model = productDTO.model();
         this.size = productDTO.size();
         this.color = productDTO.color();
+        this.category = productDTO.category();
     }
 
     public Long getId() {
@@ -80,6 +87,22 @@ public class Product {
         this.color = color;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,3 +115,4 @@ public class Product {
         return Objects.hash(getId());
     }
 }
+
