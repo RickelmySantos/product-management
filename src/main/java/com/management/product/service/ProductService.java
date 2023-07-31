@@ -24,6 +24,10 @@ public class ProductService {
     return productRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Produto não encontrado!"));
     }
 
+    public Product saveProduct(Product product){
+     return productRepository.save(product);
+    }
+
     public Product updateProduct(Long id, Product updateProduct){
     Product existingProduct = searchForId(id);
      existingProduct.setBrand(updateProduct.getBrand());
