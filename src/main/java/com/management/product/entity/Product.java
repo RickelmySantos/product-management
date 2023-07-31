@@ -21,6 +21,7 @@ public class Product {
     private String color;
     @Column(nullable = false, length = 255)
     private Double price;
+    private Integer availableStock;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -28,13 +29,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String brand, String model, String size, String color, Double price, Category category) {
+    public Product(Long id, String brand, String model, String size, String color, Double price, Integer availableStock , Category category) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.size = size;
         this.color = color;
         this.price = price;
+        this.availableStock = availableStock;
         this.category = category;
     }
 
@@ -44,6 +46,8 @@ public class Product {
         this.model = productDTO.model();
         this.size = productDTO.size();
         this.color = productDTO.color();
+        this.price = productDTO.price();
+        this.availableStock = productDTO.availableStock();
         this.category = productDTO.category();
     }
 
@@ -93,6 +97,14 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getAvailableStock() {
+        return availableStock;
+    }
+
+    public void setAvailableStock(Integer availableStock) {
+        this.availableStock = availableStock;
     }
 
     public Category getCategory() {
