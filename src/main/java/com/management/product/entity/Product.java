@@ -29,7 +29,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String brand, String model, String size, String color, Double price, Integer availableStock , Category category) {
+    public Product(Long id, String brand, String model, String size, String color, Double price, Integer availableStock, Category category) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -125,6 +125,34 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public void updateFromDTO(ProductDTO productDTO) {
+        if (productDTO.brand() != null) {
+            if (productDTO.brand() != null) {
+                this.setBrand(productDTO.brand());
+            }
+
+            if (productDTO.model() != null) {
+                this.setModel(productDTO.model());
+            }
+
+            if (productDTO.size() != null) {
+                this.setSize(productDTO.size());
+            }
+
+            if (productDTO.color() != null) {
+                this.setColor(productDTO.color());
+            }
+
+            if (productDTO.price() != null) {
+                this.setPrice(productDTO.price());
+            }
+
+            if (productDTO.availableStock() != null) {
+                this.setAvailableStock(productDTO.availableStock());
+            }
+        }
     }
 }
 
