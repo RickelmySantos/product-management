@@ -1,5 +1,6 @@
 package com.management.product.entity;
 
+import com.management.product.dto.CategoryDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -20,6 +21,12 @@ public class Category {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public Category(CategoryDTO categoryDTO) {
+        this.id = categoryDTO.id();
+        this.name = categoryDTO.name();
+        this.description = categoryDTO.description();
     }
 
     public Long getId() {

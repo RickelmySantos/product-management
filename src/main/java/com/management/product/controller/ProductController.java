@@ -1,19 +1,17 @@
 package com.management.product.controller;
 
-import com.management.product.dto.DetalhamentoProductDTO;
+import com.management.product.dto.DetailingProductDTO;
 import com.management.product.dto.ProductDTO;
 import com.management.product.entity.Product;
 import com.management.product.repository.ProductRepository;
 import com.management.product.service.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -34,23 +32,23 @@ public class ProductController {
     var product = new Product(productDTO);
     productService.saveProduct(product);
     var uri = uriBuilder.path("/api/products/{id}").buildAndExpand(product.getId()).toUri();
-    return ResponseEntity.created(uri).body(new DetalhamentoProductDTO(product));
+    return ResponseEntity.created(uri).body(new DetailingProductDTO(product));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> listProduct(@PathVariable(value = "id") Long id){
         try {
             var product = productService.searchForId(id);
-            return ResponseEntity.ok(new DetalhamentoProductDTO(product));
+            return ResponseEntity.ok(new DetailingProductDTO(product));
         }catch (NoSuchElementException e){
             return ResponseEntity.ok().build();
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<DetalhamentoProductDTO>  updateProduct(@PathVariable Long id,@RequestBody @Valid ProductDTO productDTO){
+    public ResponseEntity<DetailingProductDTO>  updateProduct(@PathVariable Long id, @RequestBody @Valid ProductDTO productDTO){
             try {
                 Product product = productService.updateProduct(id, new Product(productDTO));
-                return ResponseEntity.ok(new DetalhamentoProductDTO(product));
+                return ResponseEntity.ok(new DetailingProductDTO(product));
             } catch (NoSuchElementException e) {
                 return ResponseEntity.notFound().build();
             }
