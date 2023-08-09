@@ -31,14 +31,11 @@ public class CategoryController {
         }
     }
     @PostMapping
-    public ResponseEntity<DetailingCategoryDTO> createdCategory(@PathVariable @Valid CategoryDTO categoryDTO, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DetailingCategoryDTO> createdCategory(@RequestBody @Valid CategoryDTO categoryDTO, UriComponentsBuilder uriBuilder){
        var category = new Category(categoryDTO);
        categoryService.saveCategory(category);
         var uri = uriBuilder.path("/api/categories/{id}").buildAndExpand(category.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailingCategoryDTO(category));
-
-
-
     }
 }
 
