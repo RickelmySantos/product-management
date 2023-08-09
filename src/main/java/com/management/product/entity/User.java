@@ -30,6 +30,12 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public User(String login, String password, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getId() {
         return id;
     }
