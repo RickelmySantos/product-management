@@ -11,10 +11,11 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-
+@Component
 public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     JwtService jwtService;
@@ -38,6 +39,6 @@ public class SecurityFilter extends OncePerRequestFilter {
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
         if(authHeader == null) return null;
-        return authHeader.replace("Bearer", "");
+        return authHeader.replace("Bearer ", "");
     }
 }

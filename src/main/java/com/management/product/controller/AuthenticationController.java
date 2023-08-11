@@ -1,6 +1,7 @@
 package com.management.product.controller;
 
 import com.management.product.dto.AuthenticationDTO;
+import com.management.product.dto.LoginResponseDTO;
 import com.management.product.dto.RegisterDTO;
 import com.management.product.entity.User;
 import com.management.product.repository.UserRepository;
@@ -35,7 +36,7 @@ public class AuthenticationController {
 
         var token = jwtService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO registerDTO){
