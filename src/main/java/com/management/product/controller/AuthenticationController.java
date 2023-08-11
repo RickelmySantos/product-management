@@ -4,6 +4,7 @@ import com.management.product.dto.AuthenticationDTO;
 import com.management.product.dto.RegisterDTO;
 import com.management.product.entity.User;
 import com.management.product.repository.UserRepository;
+import com.management.product.security.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +24,16 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    JwtService jwtService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO authenticationDTO){
         var usenamePassword = new UsernamePasswordAuthenticationToken(authenticationDTO.login(), authenticationDTO.password());
         var auth = this.authenticationManager.authenticate(usenamePassword);
+
+        var token = jwtService.generateToken((User) auth.getPrincipal());
 
         return ResponseEntity.ok().build();
     }
